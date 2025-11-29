@@ -1,0 +1,155 @@
+{
+    "accounts": [
+        {
+            "username": "user1",
+            "password": "mypassword",
+            "credentials": [
+                {
+                    "website": "Facebook",
+                    "login": "0785 534 233",
+                    "password": "complex_password"
+                },
+                {
+                    "website": "Youtube",
+                    "login": "marcel@gmail.com",
+                    "password": "marcel"
+                },
+                {
+                    "website": "Tinder",
+                    "login": "07 n-am cartela",
+                    "password": "gigel"
+                },
+                {
+                    "website": "Steam",
+                    "login": "marcel1234",
+                    "password": "parola"
+                },
+                {
+                    "website": "da",
+                    "login": "da",
+                    "password": "da"
+                },
+                {
+                    "website": "nu",
+                    "login": "nu",
+                    "password": "nu"
+                },
+                {
+                    "website": "f",
+                    "login": "f",
+                    "password": "g"
+                },
+                {
+                    "website": "cont",
+                    "login": "parola",
+                    "password": "complex_password"
+                },
+                {
+                    "website": "fff",
+                    "login": "fff",
+                    "password": "fff"
+                },
+                {
+                    "website": "pornhub",
+                    "login": "gigel",
+                    "password": "complex_password"
+                }
+            ]
+        },
+        {
+            "username": "Stefan",
+            "password": "parola",
+            "credentials": [
+                {
+                    "website": "Fcaebook",
+                    "login": "da",
+                    "password": "complex_password"
+                },
+                {
+                    "website": "da",
+                    "login": "da",
+                    "password": "da"
+                },
+                {
+                    "website": "cont",
+                    "login": "cont",
+                    "password": "cont"
+                },
+                {
+                    "website": "discord",
+                    "login": "email",
+                    "password": "complex_password"
+                }
+            ]
+        },
+        {
+            "username": "da",
+            "password": "nu",
+            "credentials": [
+                {
+                    "website": "da",
+                    "login": "dad",
+                    "password": "da"
+                }
+            ]
+        },
+        {
+            "username": "d",
+            "password": "d",
+            "credentials": []
+        },
+        {
+            "username": "cineva",
+            "password": "o parola",
+            "credentials": [
+                {
+                    "website": "un_cont",
+                    "login": "un_mail",
+                    "password": "o_parola"
+                }
+            ]
+        },
+        {
+            "username": "fg",
+            "password": "fg",
+            "credentials": [
+                {
+                    "website": "dasd",
+                    "login": "dasda",
+                    "password": "dasda"
+                }
+            ]
+        },
+        {
+            "username": "gh",
+            "password": "gh",
+            "credentials": [
+                {
+                    "website": "hj",
+                    "login": "hj",
+                    "password": "hj"
+                }
+            ]
+        },
+        {
+            "username": "cneva",
+            "password": "dfgfdghdfg",
+            "credentials": []
+        },
+        {
+            "username": "fddf",
+            "password": "dfgdfg",
+            "credentials": []
+        },
+        {
+            "username": "user12",
+            "password": "sdfsdf",
+            "credentials": []
+        },
+        {
+            "username": "ceva",
+            "password": "altceva",
+            "credentials": []
+        }
+    ]
+}
