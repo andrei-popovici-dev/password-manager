@@ -1,60 +1,89 @@
 import json
 import os
+import base64
+from crypto import hash_password, verify_password, derive_key, encrypt_password, decrypt_password
 
-# Path to your JSON file
-DATA_FILE = 'data.json'
+DATA_FILE = "data.json"
 
-# Ensure the JSON file exists with the correct structure
+# Ensure JSON file exists
 if not os.path.exists(DATA_FILE):
-    with open(DATA_FILE, 'w') as f:
+    with open(DATA_FILE, "w") as f:
         json.dump({"accounts": []}, f, indent=4)
 
+
 def load_data():
-    """Load all data from JSON file."""
-    with open(DATA_FILE, 'r') as f:
+    with open(DATA_FILE, "r") as f:
         return json.load(f)
 
+
 def save_data(data):
-    """Save the data dictionary back to JSON file."""
-    with open(DATA_FILE, 'w') as f:
+    with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
+
 def add_account(username, password):
-    """
-    Add a new account to the JSON file.
-    Returns True if added, False if username already exists.
-    """
+    """Create a new main account with hashed password and salt."""
     data = load_data()
 
-    # Check if user already exists
+    # Check if user exists
     for acc in data["accounts"]:
         if acc["username"] == username:
-            return False  # Username taken
+            return False
 
-    # Add new account
+    # Generate salt for hashing
+    salt = os.urandom(16)
+    hashed = hash_password(password, salt)
+
+    # Add account
     data["accounts"].append({
         "username": username,
-        "password": password,
+        "password": hashed,
+        "salt": base64.b64encode(salt).decode(),
         "credentials": []
     })
-
     save_data(data)
     return True
 
+
 def get_account(username):
-    """Return the account dictionary for a given username, or None."""
     data = load_data()
     for acc in data["accounts"]:
         if acc["username"] == username:
             return acc
     return None
 
-# Example usage:
-if __name__ == "__main__":
-    username = "user1"
-    password = "mypassword"
 
-    if add_account(username, password):
-        print(f"Account '{username}' added successfully!")
-    else:
-        print(f"Username '{username}' already exists.")
+def verify_main_password(username, password):
+    """Return True if main password is correct."""
+    acc = get_account(username)
+    if not acc or "salt" not in acc or "password" not in acc:
+        return False
+    salt = base64.b64decode(acc["salt"])
+    stored_hash = acc["password"]
+    return verify_password(password, stored_hash, salt)
+
+
+def add_credential(username, website, login, password, main_password):
+    """Add a credential to a user, encrypting the password."""
+    data = load_data()
+    for acc in data["accounts"]:
+        if acc["username"] == username:
+            salt = base64.b64decode(acc["salt"])
+            key = derive_key(main_password, salt)
+            encrypted_pwd = encrypt_password(password, key)
+            acc.setdefault("credentials", []).append({
+                "website": website,
+                "login": login,
+                "password": encrypted_pwd
+            })
+            save_data(data)
+            return True
+    return False
+
+
+def decrypt_credential(acc, credential, main_password):
+    """Decrypt a single credential's password."""
+    salt = base64.b64decode(acc["salt"])
+    key = derive_key(main_password, salt)
+    decrypted = decrypt_password(credential["password"], key)
+    return decrypted
