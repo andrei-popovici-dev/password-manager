@@ -1,0 +1,7 @@
+    Implementarea foloseste 2 fisiere: BackApp.py care se ocupa cu logica in sine, si FrontApp.py care se ocupa cu
+interfata grafica. In fisierul data.json vom stoca datele despre useri: se stocheaza numele userului si parola
+(momentan plain-text,TODO:criptare), si credentialele pentru diverse website-uri, care la randul lor vor retine: numele site-ului/
+contului, user/mail/numar de telefon si parola.
+    La start-up suntem prezentati cu 2 optiuni: logare cu date deja existente sau creaerea unui nou cont. Dupa o logare
+vei fi prezentat cu toate conturile deja existente si optiunea de a crea unul nou, aici ai optiunea de a genera o parola
+(TODO),si optiunea de logout.

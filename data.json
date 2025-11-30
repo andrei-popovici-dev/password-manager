@@ -53,6 +53,16 @@
                     "website": "pornhub",
                     "login": "gigel",
                     "password": "complex_password"
+                },
+                {
+                    "website": "csdfsfdsfds",
+                    "login": "sdfsdfdsfsdf",
+                    "password": "test"
+                },
+                {
+                    "website": "Facebook",
+                    "login": "mail",
+                    "password": "complex_password"
                 }
             ]
         },
@@ -79,6 +89,11 @@
                     "website": "discord",
                     "login": "email",
                     "password": "complex_password"
+                },
+                {
+                    "website": "uncsofsd",
+                    "login": "dasfsdf",
+                    "password": "sdfsdf"
                 }
             ]
         },
@@ -149,6 +164,16 @@
         {
             "username": "ceva",
             "password": "altceva",
+            "credentials": []
+        },
+        {
+            "username": "bogdan",
+            "password": "bogdan",
+            "credentials": []
+        },
+        {
+            "username": "carmen",
+            "password": "password",
             "credentials": []
         }
     ]
