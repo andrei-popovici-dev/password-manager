@@ -3,12 +3,9 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 from cryptography.fernet import Fernet
 
-# ================================
-# PASSWORD HASH (pentru LOGIN)
-# ================================
-
 def hash_password(password: str, salt: bytes) -> str:
-    """Returnează un hash PBKDF2 al parolei."""
+    """Genereaza un hash PBKDF2 al parolei cu salt."""
+    # Creeaza un derivator de chei folosind PBKDF2
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,
@@ -16,11 +13,12 @@ def hash_password(password: str, salt: bytes) -> str:
         iterations=200_000,
     )
     hashed = kdf.derive(password.encode())
+    # Codifica hash-ul in base64 pentru stocare
     return base64.b64encode(hashed).decode()
 
 
 def verify_password(password: str, stored_hash: str, salt: bytes) -> bool:
-    """Verifică parola folosind PBKDF2."""
+    """Verifica parola comparand hash-urile."""
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,
@@ -28,18 +26,14 @@ def verify_password(password: str, stored_hash: str, salt: bytes) -> bool:
         iterations=200_000,
     )
     try:
+        # Verifica daca parola introdusa se potriveste cu hash-ul stocat
         kdf.verify(password.encode(), base64.b64decode(stored_hash.encode()))
         return True
     except:
         return False
 
-
-# =============================================
-# KEY DERIVATION pentru criptarea credentialelor
-# =============================================
-
 def derive_key(password: str, salt: bytes) -> bytes:
-    """Generează o cheie Fernet din parolă (pentru criptarea credentialelor)."""
+    """Genereaza o cheie Fernet din parola pentru criptarea credentialelor."""
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,
@@ -47,19 +41,18 @@ def derive_key(password: str, salt: bytes) -> bytes:
         iterations=200_000,
     )
     key = kdf.derive(password.encode())
+    # Codifica cheia pentru a fi compatibila cu Fernet
     return base64.urlsafe_b64encode(key)
 
-
-# ============================
-# ENCRYPT / DECRYPT PAROLE
-# ============================
-
 def encrypt_password(plaintext: str, key_b64: bytes) -> str:
+    """Cripteaza o parola folosind Fernet."""
     f = Fernet(key_b64)
     token = f.encrypt(plaintext.encode())
     return token.decode()
 
 
 def decrypt_password(ciphertext: str, key_b64: bytes) -> str:
+    """Decripteaza o parola folosind Fernet."""
     f = Fernet(key_b64)
+    # Decripteaza si returneaza parola in format text
     return f.decrypt(ciphertext.encode()).decode()

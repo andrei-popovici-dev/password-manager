@@ -1,8 +1,26 @@
-    Implementarea foloseste 3 fisiere: BackApp.py care se ocupa cu logica in sine, si FrontApp.py care se ocupa cu
-interfata grafica si crypto.py care se ocupa cu criptarea/decriptarea parolelor. In fisierul data.json vom stoca datele despre useri: se stocheaza numele
-userului si parola(criptate, parola pentru cont nu trebuie afisata niciodata, doar testata, in schimb parolele pentru diversele conturi ale userului 
-trebuie afisate deci trebuie decriptate), si credentialele pentru diverse website-uri, care la randul lor vor retine: numele site-ului/ contului, 
-user/mail/numar de telefon si parola.
-    La start-up suntem prezentati cu 2 optiuni: logare cu date deja existente sau creaerea unui nou cont. Dupa o logare
-vei fi prezentat cu toate conturile deja existente si optiunea de a crea unul nou, aici vei avea optiunea de a genera o parola
-(TODO),si optiunea de logout.
+    Implementarea foloseste 3 fisiere principale: BackApp.py care se ocupa 
+cu logica in sine, FrontApp.py care se ocupa cu interfata grafica si crypto.py
+care se ocupa cu criptarea/decriptarea parolelor. In fisierul data.json vom stoca
+datele despre useri:se stocheaza numele userului si parola(criptate, parola
+pentru cont nu trebuie afisata niciodata, doar testata, in schimb parolele
+pentru diversele conturi ale userului trebuie afisate deci trebuie decriptate),
+si credentialele pentru diverse website-uri, care la randul lor vor retine:
+numele site-ului/contului, user/mail/numar de telefon si parola (criptata).
+
+    La startul aplicatiei, se va afisa o fereastra de login unde userul va
+trebui sa introduca numele si parola. Daca userul nu are cont, va putea
+crea unul nou. Dupa autentificare, userul va putea vedea o lista cu
+credentialele salvate, si va putea adauga altele noi, modifica sau sterge
+credentialele existente. Parolele vor fi criptate folosind o cheie derivata
+din parola contului userului.
+    Userul poate introduce propria parola sau poate genera una aleatoare.
+Acesta poate selecta cate caractere sa contina parola generata, si daca sa contina
+litere, cifre sau caractere speciale.
+
+    Pentru criptare se foloseste biblioteca cryptography, iar pentru interfata
+grafica se foloseste Kivy.
+    La crearea unui cont nou, parola este hashuita folosind PBKDF2HMAC cu
+SHA256 si un salt generat aleator, si este stocata impreuna cu salt-ul.
+
+
+
