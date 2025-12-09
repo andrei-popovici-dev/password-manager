@@ -3,7 +3,7 @@ import os
 import base64
 from crypto import hash_password, verify_password, derive_key, encrypt_password, decrypt_password
 
-DATA_FILE = "data.json"
+DATA_FILE = "Data/data.json"
 
 # Ensure JSON file exists
 if not os.path.exists(DATA_FILE):

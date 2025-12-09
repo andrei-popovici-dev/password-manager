@@ -59,6 +59,6 @@ class Api:
 if __name__ == '__main__':
     api = Api()
     # Creăm fereastra și atașăm API-ul
-    window = webview.create_window('Password Manager', 'gui.html', js_api=api, width=800, height=600)
+    window = webview.create_window('Password Manager', 'index.html', js_api=api, width=800, height=600)
     window.min_size = (800, 600)
     webview.start(debug=False)

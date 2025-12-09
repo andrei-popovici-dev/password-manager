@@ -39,7 +39,13 @@
             "username": "user",
             "password": "EER+2xUqTR04csg0YaP9Jz8ZzmmanVSpt0T9jw4e+bw=",
             "salt": "iS7d9i45MXjdou7OKQssqw==",
-            "credentials": []
+            "credentials": [
+                {
+                    "website": "andrei",
+                    "login": "andrei",
+                    "password": "gAAAAABpOIiawa6bl95ysc99z_hwVWxfqNKdstNo9VOII6DDGBI7EF3a2u04Md_yHA0Q2g5vxatwTNaQ6kYg7gMWhiyTpF-l2Q=="
+                }
+            ]
         }
     ]
 }
