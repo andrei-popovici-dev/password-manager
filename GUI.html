@@ -1,68 +1,75 @@
 <!DOCTYPE html>
-<html lang="eng">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Manager</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Un mic truc pentru a ascunde scrollbar-ul în timpul animației */
+        body { overflow: hidden; }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans h-screen flex flex-col">
 
-    <div id="auth-container" class="flex flex-1 items-center justify-center min-h-screen p-4">
+    <div id="auth-container" class="flex flex-1 items-center justify-center min-h-screen p-4 transition-all duration-500">
 
-    <div class="bg-white p-8 rounded-xl shadow-2xl w-96 transition-all duration-500 ease-in-out">
+        <div id="auth-card" class="bg-white rounded-xl shadow-2xl w-96 transition-all duration-500 ease-in-out overflow-hidden relative">
 
-        <h2 id="card-title" class="text-3xl font-bold mb-6 text-center text-gray-800 transition-colors duration-300">
-            Login
-        </h2>
+            <div id="auth-content" class="p-8 transition-opacity duration-300 ease-out">
 
-        <div class="space-y-4">
-            <div class="px-1">
-                <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Username</label>
-                <input id="auth-user" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-            </div>
+                <h2 id="card-title" class="text-3xl font-bold mb-6 text-center text-gray-800 transition-colors duration-300">
+                    Login
+                </h2>
 
-            <div class="px-1">
-                <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Password</label>
-                <input id="auth-pass" type="password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-            </div>
+                <div class="space-y-4">
+                    <div class="px-1">
+                        <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Username</label>
+                        <input id="auth-user" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                    </div>
 
-            <div id="expandable-section" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out">
-                <div class="overflow-hidden">
-                    <div class="pt-1 px-1 pb-1">
-                        <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Repeat Password</label>
-                        <input id="auth-pass-repeat" type="password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                    <div class="px-1">
+                        <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Password</label>
+                        <input id="auth-pass" type="password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                    </div>
+
+                    <div id="expandable-section" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out">
+                        <div class="overflow-hidden">
+                            <div class="pt-1 px-1 pb-1">
+                                <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Repeat Password</label>
+                                <input id="auth-pass-repeat" type="password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="mt-8 flex flex-col gap-3">
-            <button id="main-btn" onclick="handleAuthAction()" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-bold transition-colors shadow-md hover:shadow-lg transform active:scale-95">
-                Login
-            </button>
-
-            <div class="text-center">
-                <p class="text-sm text-gray-500">
-                    <span id="toggle-text">Don't have an account?</span>
-                    <button onclick="toggleAuthMode()" class="text-blue-600 font-bold hover:underline ml-1 focus:outline-none">
-                        <span id="toggle-btn-label">Sign in</span>
+                <div class="mt-8 flex flex-col gap-3">
+                    <button id="main-btn" onclick="handleAuthAction()" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-bold transition-colors shadow-md hover:shadow-lg transform active:scale-95">
+                        Login
                     </button>
-                </p>
+
+                    <div class="text-center">
+                        <p class="text-sm text-gray-500">
+                            <span id="toggle-text">Don't have an account?</span>
+                            <button onclick="toggleAuthMode()" class="text-blue-600 font-bold hover:underline ml-1 focus:outline-none">
+                                <span id="toggle-btn-label">Sign in</span>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+
+                <p id="auth-msg" class="mt-4 text-center text-red-500 text-sm font-medium min-h-[20px] transition-all"></p>
             </div>
         </div>
-
-        <p id="auth-msg" class="mt-4 text-center text-red-500 text-sm font-medium min-h-[20px] transition-all"></p>
     </div>
-</div>
 
-    <div id="dashboard-screen" class="hidden flex-col h-full">
-        <div class="bg-white shadow p-4 flex justify-between items-center">
+    <div id="dashboard-screen" class="hidden opacity-0 flex-col h-full transition-opacity duration-700">
+        <div class="bg-white shadow p-4 flex justify-between items-center z-10 relative">
             <h1 class="text-xl font-bold text-gray-700">My Passwords</h1>
             <button onclick="logout()" class="text-red-500 hover:text-red-700 text-sm">Deconectare</button>
         </div>
 
-        <div class="p-6 flex-1 overflow-auto">
+        <div class="p-6 flex-1 overflow-auto bg-gray-50">
 
             <div class="bg-white p-4 rounded-lg shadow mb-6 flex gap-2 flex-wrap md:flex-nowrap">
                 <input id="new-site" placeholder="Website" class="border p-2 rounded w-full md:w-1/3">
@@ -88,126 +95,135 @@
     </div>
 
     <script>
-let isRegisterMode = false;
+        let isRegisterMode = false;
 
-function toggleAuthMode() {
-    isRegisterMode = !isRegisterMode; 
+        function toggleAuthMode() {
+            isRegisterMode = !isRegisterMode;
 
-    const title = document.getElementById('card-title');
-    const mainBtn = document.getElementById('main-btn');
-    const expandable = document.getElementById('expandable-section');
-    const toggleText = document.getElementById('toggle-text');
-    const toggleBtnLabel = document.getElementById('toggle-btn-label');
-    const msg = document.getElementById('auth-msg');
+            const title = document.getElementById('card-title');
+            const mainBtn = document.getElementById('main-btn');
+            const expandable = document.getElementById('expandable-section');
+            const toggleText = document.getElementById('toggle-text');
+            const toggleBtnLabel = document.getElementById('toggle-btn-label');
+            const msg = document.getElementById('auth-msg');
 
-    msg.innerText = '';
+            // FIX: Definim inputs ca să nu dea eroare codul
+            const inputs = document.querySelectorAll('input');
 
-    if (isRegisterMode) {
+            msg.innerText = '';
 
-        expandable.classList.remove('grid-rows-[0fr]');
-        expandable.classList.add('grid-rows-[1fr]');
+            if (isRegisterMode) {
+                expandable.classList.remove('grid-rows-[0fr]');
+                expandable.classList.add('grid-rows-[1fr]');
 
-        title.innerText = "Sign in";
-        mainBtn.innerText = "Sign in";
-        toggleText.innerText = "Already have an account";
-        toggleBtnLabel.innerText = "Login";
+                title.innerText = "Sign in";
+                mainBtn.innerText = "Sign in";
+                toggleText.innerText = "Already have an account";
+                toggleBtnLabel.innerText = "Login";
 
-        mainBtn.classList.replace('bg-blue-600', 'bg-green-600');
-        mainBtn.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
+                mainBtn.classList.replace('bg-blue-600', 'bg-green-600');
+                mainBtn.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
 
-    } else {
+                inputs.forEach(inp => {
+                    inp.classList.replace('focus:ring-blue-500', 'focus:ring-green-500');
+                });
 
-        expandable.classList.remove('grid-rows-[1fr]');
-        expandable.classList.add('grid-rows-[0fr]');
+            } else {
+                expandable.classList.remove('grid-rows-[1fr]');
+                expandable.classList.add('grid-rows-[0fr]');
 
-        title.innerText = "Login";
-        mainBtn.innerText = "Login";
-        toggleText.innerText = "Don't have an account?";
-        toggleBtnLabel.innerText = "Sign in";
+                title.innerText = "Login";
+                mainBtn.innerText = "Login";
+                toggleText.innerText = "Don't have an account?";
+                toggleBtnLabel.innerText = "Sign in";
 
-        mainBtn.classList.replace('bg-green-600', 'bg-blue-600');
-        mainBtn.classList.replace('hover:bg-green-700', 'hover:bg-blue-700');
+                mainBtn.classList.replace('bg-green-600', 'bg-blue-600');
+                mainBtn.classList.replace('hover:bg-green-700', 'hover:bg-blue-700');
 
-        inputs.forEach(inp => {
-            inp.classList.replace('focus:ring-green-500', 'focus:ring-blue-500');
-        });
-    }
-}
-
-async function handleAuthAction() {
-    const user = document.getElementById('auth-user').value;
-    const pass = document.getElementById('auth-pass').value;
-    const msgLabel = document.getElementById('auth-msg');
-
-    if (!user || !pass) {
-        msgLabel.innerText = "Please fill in the blanks.";
-        return;
-    }
-
-    if (isRegisterMode) {
-        // SIGN-IN
-        const passRepeat = document.getElementById('auth-pass-repeat').value;
-
-        if (pass !== passRepeat) {
-            msgLabel.innerText = "Passwords don't match!";
-            msgLabel.className = "mt-4 text-center text-red-500 text-sm font-medium";
-            return;
+                inputs.forEach(inp => {
+                    inp.classList.replace('focus:ring-green-500', 'focus:ring-blue-500');
+                });
+            }
         }
 
-        const response = await window.pywebview.api.register(user, pass);
+        async function handleAuthAction() {
+            const user = document.getElementById('auth-user').value;
+            const pass = document.getElementById('auth-pass').value;
+            const msgLabel = document.getElementById('auth-msg');
 
-        if (response.status === 'success') {
-            const response = await window.pywebview.api.login(user, pass);
-            if (response.status === 'success') {
-            // Animație de ieșire
-            const container = document.getElementById('auth-container');
-            container.classList.add('opacity-0', 'scale-95'); // Fade out + Shrink
+            if (!user || !pass) {
+                msgLabel.innerText = "Please fill in the blanks.";
+                return;
+            }
 
-            setTimeout(() => {
-                container.classList.add('hidden');
-                const dash = document.getElementById('dashboard-screen');
-                dash.classList.remove('hidden');
-                dash.classList.add('flex');
-                loadCredentials();
-            }, 500);
+            // --- LOGICA DE TRATARE A RĂSPUNSULUI ---
+            let success = false;
+            let message = "";
+
+            if (isRegisterMode) {
+                const passRepeat = document.getElementById('auth-pass-repeat').value;
+                if (pass !== passRepeat) {
+                    msgLabel.innerText = "Passwords don't match!";
+                    return;
+                }
+                const regResponse = await window.pywebview.api.register(user, pass);
+                if (regResponse.status === 'success') {
+                    // Auto-login după register
+                    const logResponse = await window.pywebview.api.login(user, pass);
+                    if (logResponse.status === 'success') {
+                        success = true;
+                    } else {
+                        message = logResponse.message;
+                    }
+                } else {
+                    message = regResponse.message;
+                }
             } else {
-                msgLabel.innerText = response.message;
+                const response = await window.pywebview.api.login(user, pass);
+                if (response.status === 'success') {
+                    success = true;
+                } else {
+                    message = response.message;
+                }
+            }
+
+            if (success) {
+                document.getElementById('auth-content').classList.add('opacity-0');
+
+                setTimeout(() => {
+                    const card = document.getElementById('auth-card');
+                    const container = document.getElementById('auth-container');
+
+                    container.classList.remove('p-4');
+
+                    card.classList.remove('w-96', 'rounded-xl', 'shadow-2xl');
+                    card.classList.add('w-full', 'h-full', 'rounded-none');
+                }, 200);
+
+                setTimeout(() => {
+                    document.getElementById('auth-container').classList.add('hidden');
+
+                    const dash = document.getElementById('dashboard-screen');
+                    dash.classList.remove('hidden');
+
+                    setTimeout(() => {
+                         dash.classList.remove('opacity-0');
+                    }, 50);
+
+                    dash.classList.add('flex');
+                    loadCredentials();
+                }, 750);
+
+            } else {
+                msgLabel.innerText = message;
                 msgLabel.className = "mt-4 text-center text-red-500 text-sm font-medium";
             }
-            
-            setTimeout(() => toggleAuthMode(), 1500);
-        } else {
-            msgLabel.innerText = response.message;
-            msgLabel.className = "mt-4 text-center text-red-500 text-sm font-medium";
         }
-
-    } else {
-        //LOGIN
-        const response = await window.pywebview.api.login(user, pass);
-
-        if (response.status === 'success') {
-
-            const container = document.getElementById('auth-container');
-            container.classList.add('opacity-0', 'scale-95'); 
-
-            setTimeout(() => {
-                container.classList.add('hidden');
-                const dash = document.getElementById('dashboard-screen');
-                dash.classList.remove('hidden');
-                dash.classList.add('flex');
-                loadCredentials();
-            }, 500);
-        } else {
-            msgLabel.innerText = response.message;
-            msgLabel.className = "mt-4 text-center text-red-500 text-sm font-medium";
-        }
-    }
-}
 
         async function loadCredentials() {
             const list = await window.pywebview.api.get_user_credentials();
             const tbody = document.getElementById('cred-list');
-            tbody.innerHTML = ''; 
+            tbody.innerHTML = '';
 
             list.forEach(item => {
                 const row = `
@@ -240,7 +256,7 @@ async function handleAuthAction() {
 
         async function revealPass(id, btnElement) {
             const password = await window.pywebview.api.reveal_password(id);
-            btnElement.parentElement.innerHTML = `<span class="font-mono bg-gray-100 px-2 py-1 rounded">${password}</span>`;
+            btnElement.parentElement.innerHTML = `<span class="font-mono bg-gray-100 px-2 py-1 rounded select-all">${password}</span>`;
         }
 
         function logout() {
