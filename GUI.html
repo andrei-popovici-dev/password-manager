@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans h-screen flex flex-col">
+
+    <div id="auth-container" class="flex flex-1 items-center justify-center min-h-screen p-4">
+
+    <div class="bg-white p-8 rounded-xl shadow-2xl w-96 transition-all duration-500 ease-in-out">
+
+        <h2 id="card-title" class="text-3xl font-bold mb-6 text-center text-gray-800 transition-colors duration-300">
+            Login
+        </h2>
+
+        <div class="space-y-4">
+            <div class="px-1">
+                <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Username</label>
+                <input id="auth-user" type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+            </div>
+
+            <div class="px-1">
+                <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Password</label>
+                <input id="auth-pass" type="password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+            </div>
+
+            <div id="expandable-section" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out">
+                <div class="overflow-hidden">
+                    <div class="pt-1 px-1 pb-1">
+                        <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Repeat Password</label>
+                        <input id="auth-pass-repeat" type="password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex flex-col gap-3">
+            <button id="main-btn" onclick="handleAuthAction()" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-bold transition-colors shadow-md hover:shadow-lg transform active:scale-95">
+                Intră în cont
+            </button>
+
+            <div class="text-center">
+                <p class="text-sm text-gray-500">
+                    <span id="toggle-text">Don't have an account?</span>
+                    <button onclick="toggleAuthMode()" class="text-blue-600 font-bold hover:underline ml-1 focus:outline-none">
+                        <span id="toggle-btn-label">Sign in</span>
+                    </button>
+                </p>
+            </div>
+        </div>
+
+        <p id="auth-msg" class="mt-4 text-center text-red-500 text-sm font-medium min-h-[20px] transition-all"></p>
+    </div>
+</div>
+
+    <div id="dashboard-screen" class="hidden flex-col h-full">
+        <div class="bg-white shadow p-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-700">My Passwords</h1>
+            <button onclick="logout()" class="text-red-500 hover:text-red-700 text-sm">Deconectare</button>
+        </div>
+
+        <div class="p-6 flex-1 overflow-auto">
+
+            <div class="bg-white p-4 rounded-lg shadow mb-6 flex gap-2 flex-wrap md:flex-nowrap">
+                <input id="new-site" placeholder="Website" class="border p-2 rounded w-full md:w-1/3">
+                <input id="new-login" placeholder="Username/Email" class="border p-2 rounded w-full md:w-1/3">
+                <input id="new-pass" type="password" placeholder="Parola" class="border p-2 rounded w-full md:w-1/3">
+                <button onclick="addCred()" class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 font-bold">Adaugă</button>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
+                        <tr>
+                            <th class="p-4">Website</th>
+                            <th class="p-4">Login</th>
+                            <th class="p-4">Password</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cred-list" class="divide-y divide-gray-200">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+let isRegisterMode = false; // Starea inițială: Login
+
+function toggleAuthMode() {
+    isRegisterMode = !isRegisterMode; // Inversăm starea (true <-> false)
+
+    // Elemente DOM
+    const title = document.getElementById('card-title');
+    const mainBtn = document.getElementById('main-btn');
+    const expandable = document.getElementById('expandable-section');
+    const toggleText = document.getElementById('toggle-text');
+    const toggleBtnLabel = document.getElementById('toggle-btn-label');
+    const msg = document.getElementById('auth-msg');
+
+    // Inputs pentru a schimba culoarea focusului (Blue vs Green)
+
+    // Curățăm mesajele vechi
+    msg.innerText = '';
+
+    if (isRegisterMode) {
+        // --- MOD REGISTER ---
+
+        // 1. Extindem secțiunea (Animația magică)
+        expandable.classList.remove('grid-rows-[0fr]');
+        expandable.classList.add('grid-rows-[1fr]');
+
+        // 2. Schimbăm Textele
+        title.innerText = "Sign in";
+        mainBtn.innerText = "Sign in";
+        toggleText.innerText = "Already have an account";
+        toggleBtnLabel.innerText = "Login";
+
+        // 3. Schimbăm culorile în Verde (sugerează creare/nou)
+        mainBtn.classList.replace('bg-blue-600', 'bg-green-600');
+        mainBtn.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
+
+    } else {
+        // --- MOD LOGIN ---
+
+        // 1. Colapsăm secțiunea
+        expandable.classList.remove('grid-rows-[1fr]');
+        expandable.classList.add('grid-rows-[0fr]');
+
+        // 2. Revenim la texte de Login
+        title.innerText = "Login";
+        mainBtn.innerText = "Login";
+        toggleText.innerText = "Don't have an account?";
+        toggleBtnLabel.innerText = "Sign in";
+
+        // 3. Revenim la culorile Albastre
+        mainBtn.classList.replace('bg-green-600', 'bg-blue-600');
+        mainBtn.classList.replace('hover:bg-green-700', 'hover:bg-blue-700');
+
+        inputs.forEach(inp => {
+            inp.classList.replace('focus:ring-green-500', 'focus:ring-blue-500');
+        });
+    }
+}
+
+// Această funcție decide ce să facă atunci când apeși butonul mare
+async function handleAuthAction() {
+    const user = document.getElementById('auth-user').value;
+    const pass = document.getElementById('auth-pass').value;
+    const msgLabel = document.getElementById('auth-msg');
+
+    if (!user || !pass) {
+        msgLabel.innerText = "Please fill in the blanks.";
+        return;
+    }
+
+    if (isRegisterMode) {
+        // LOGICA DE REGISTER
+        const passRepeat = document.getElementById('auth-pass-repeat').value;
+
+        if (pass !== passRepeat) {
+            msgLabel.innerText = "Passwords don't match!";
+            msgLabel.className = "mt-4 text-center text-red-500 text-sm font-medium";
+            return;
+        }
+
+        const response = await window.pywebview.api.register(user, pass);
+
+        if (response.status === 'success') {
+            const response = await window.pywebview.api.login(user, pass);
+            if (response.status === 'success') {
+            // Animație de ieșire
+            const container = document.getElementById('auth-container');
+            container.classList.add('opacity-0', 'scale-95'); // Fade out + Shrink
+
+            setTimeout(() => {
+                container.classList.add('hidden');
+                const dash = document.getElementById('dashboard-screen');
+                dash.classList.remove('hidden');
+                dash.classList.add('flex');
+                loadCredentials();
+            }, 500);
+            } else {
+                msgLabel.innerText = response.message;
+                msgLabel.className = "mt-4 text-center text-red-500 text-sm font-medium";
+            }
+            // Trecem automat înapoi la login după 1.5 secunde
+            setTimeout(() => toggleAuthMode(), 1500);
+        } else {
+            msgLabel.innerText = response.message;
+            msgLabel.className = "mt-4 text-center text-red-500 text-sm font-medium";
+        }
+
+    } else {
+        // LOGICA DE LOGIN
+        const response = await window.pywebview.api.login(user, pass);
+
+        if (response.status === 'success') {
+            // Animație de ieșire
+            const container = document.getElementById('auth-container');
+            container.classList.add('opacity-0', 'scale-95'); // Fade out + Shrink
+
+            setTimeout(() => {
+                container.classList.add('hidden');
+                const dash = document.getElementById('dashboard-screen');
+                dash.classList.remove('hidden');
+                dash.classList.add('flex');
+                loadCredentials();
+            }, 500);
+        } else {
+            msgLabel.innerText = response.message;
+            msgLabel.className = "mt-4 text-center text-red-500 text-sm font-medium";
+        }
+    }
+}
+
+        async function loadCredentials() {
+            const list = await window.pywebview.api.get_user_credentials();
+            const tbody = document.getElementById('cred-list');
+            tbody.innerHTML = ''; // Curata lista
+
+            list.forEach(item => {
+                const row = `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-4 font-medium text-gray-900">${item.website}</td>
+                        <td class="p-4 text-gray-500">${item.login}</td>
+                        <td class="p-4">
+                            <button onclick="revealPass(${item.id}, this)" class="text-blue-600 hover:text-blue-800 text-sm font-semibold">
+                                Vezi Parola
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        async function addCred() {
+            const site = document.getElementById('new-site').value;
+            const login = document.getElementById('new-login').value;
+            const pass = document.getElementById('new-pass').value;
+
+            await window.pywebview.api.add_new_credential(site, login, pass);
+
+            // Curata inputurile si reincarca lista
+            document.getElementById('new-site').value = '';
+            document.getElementById('new-login').value = '';
+            document.getElementById('new-pass').value = '';
+            loadCredentials();
+        }
+
+        async function revealPass(id, btnElement) {
+            const password = await window.pywebview.api.reveal_password(id);
+            // Inlocuim butonul cu parola text
+            btnElement.parentElement.innerHTML = `<span class="font-mono bg-gray-100 px-2 py-1 rounded">${password}</span>`;
+        }
+
+        function logout() {
+            location.reload(); // Reincarca aplicatia la starea initiala
+        }
+    </script>
+</body>
+</html>
