@@ -28,18 +28,6 @@
                     "password": "gAAAAABpLIINAXGDf1XgWq3pdv6sLaQFG_gcaOi7Ly1X0NpfTB9AXsVVJdx374nnIE6ENVcY8ai7EKCPWeBYIGVqLoB7O1A28Q=="
                 }
             ]
-        },
-        {
-            "username": "Andrei",
-            "password": "h51N5HE7DktYL5Tf7cMMdFoozvldq4NwuSTRYTVlB1w=",
-            "salt": "grFdw26I9V0xdARGmFzAdg==",
-            "credentials": []
-        },
-        {
-            "username": "Andrei2",
-            "password": "I3+pehzMvtoNmrsuVM6Ok+TEenzNpIOtz8gwMh+g828=",
-            "salt": "C2FI/hrRO4NVrLERmvdcpA==",
-            "credentials": []
         }
     ]
 }

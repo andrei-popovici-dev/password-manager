@@ -25,10 +25,17 @@ def add_account(username, password):
     """Create a new main account with hashed password and salt."""
     data = load_data()
 
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters"
+
+    if set(password).isdisjoint('1234567890'):
+        return False, "Password must contain at least one number"
+
+
     # Check if user exists
     for acc in data["accounts"]:
         if acc["username"] == username:
-            return False
+            return False, "Account already exists"
 
     # Generate salt for hashing
     salt = os.urandom(16)
@@ -42,7 +49,7 @@ def add_account(username, password):
         "credentials": []
     })
     save_data(data)
-    return True
+    return True, "Account created"
 
 
 def get_account(username):
