@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Manager</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             overflow: hidden;
@@ -52,6 +53,10 @@
                 const dashRes = await fetch('views/dashboard.html');
                 const dashHtml = await dashRes.text();
                 document.getElementById('dashboard-container-wrapper').innerHTML = dashHtml;
+
+                if (typeof initDashboard === 'function') {
+                    initDashboard();
+                }
 
                 console.log("HTML files loaded successfully");
             } catch (error) {

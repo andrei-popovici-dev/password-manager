@@ -46,6 +46,18 @@
                     "password": "gAAAAABpOIiawa6bl95ysc99z_hwVWxfqNKdstNo9VOII6DDGBI7EF3a2u04Md_yHA0Q2g5vxatwTNaQ6kYg7gMWhiyTpF-l2Q=="
                 }
             ]
+        },
+        {
+            "username": "user12",
+            "password": "3Ryv+EkZCY8mxVlNImhF0ccqynQHyMCBfuN2oLFIwPs=",
+            "salt": "V2LGtge4sXCBKwI/8chllA==",
+            "credentials": []
+        },
+        {
+            "username": "user23",
+            "password": "eVzrqkZUL2XKBg1l7e3pDjC8lIUw1p0/v0dL4GOIqDI=",
+            "salt": "9jfSAmmzRBniUoxQyPWV/w==",
+            "credentials": []
         }
     ]
 }

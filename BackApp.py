@@ -1,6 +1,8 @@
 import json
 import os
 import base64
+import string
+
 from crypto import hash_password, verify_password, derive_key, encrypt_password, decrypt_password
 
 DATA_FILE = "Data/data.json"
@@ -20,17 +22,33 @@ def save_data(data):
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
+def verify_password_style(password):
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters"
+
+    if set(password).isdisjoint(string.digits):
+        return False, "Password must contain at least one number"
+
+    if set(password).isdisjoint(string.ascii_letters):
+        return False, "Password must contain at least one letter"
+
+    if set(password).isdisjoint(string.ascii_uppercase):
+        return False, "Password must contain at least one uppercase letter"
+
+    if set(password).isdisjoint(string.ascii_lowercase):
+        return False, "Password must contain at least one lowercase letter"
+
+    return True, "Password created"
+
 
 def add_account(username, password):
     """Create a new main account with hashed password and salt."""
     data = load_data()
 
-    if len(password) < 8:
-        return False, "Password must be at least 8 characters"
+    success , message = verify_password_style(password)
 
-    if set(password).isdisjoint('1234567890'):
-        return False, "Password must contain at least one number"
-
+    if not success:
+        return False, message
 
     # Check if user exists
     for acc in data["accounts"]:
