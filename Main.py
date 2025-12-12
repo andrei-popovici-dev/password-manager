@@ -1,4 +1,6 @@
 import webview
+from typing_extensions import reveal_type
+
 import BackApp
 
 
@@ -38,9 +40,14 @@ class Api:
             return clean_list
         return []
 
+    def update_credential(self, cred_id, website, login, password):
+        success,msg = BackApp.edit_credential_data(self.current_user,cred_id, website, login, password,self.main_password_cache)
+        return success, msg
+
+
     def add_new_credential(self, website, login, password):
         if not self.current_user:
-            return False
+            return False, "Something went wrong"
         return BackApp.add_credential(self.current_user, website, login, password, self.main_password_cache)
 
     def reveal_password(self, index):
@@ -50,15 +57,32 @@ class Api:
         account = BackApp.get_account(self.current_user)
         credential = account["credentials"][index]
 
-        # Folosim parola master din cache pentru a decripta
         decrypted = BackApp.decrypt_credential(account, credential, self.main_password_cache)
-        return decrypted.decode()  # sau convertit în string cum e nevoie
+        return decrypted
 
+    def get_current_username(self):
+        return self.current_user
 
-# Pornirea aplicației
+    def verify_weak_passwords(self):
+        i = 0
+        weak_accounts = []
+
+        for cred in self.get_user_credentials():
+            current_id = cred.get("id")
+            success, err = BackApp.verify_password_style(self.reveal_password(current_id))
+            if not success:
+                weak_accounts.append(cred)
+
+        return weak_accounts
+
+    def delete_credential(self, index):
+        if not self.current_user:
+            return False, "Something went wrong"
+        status, err = BackApp.delete_credential_data(self.current_user, index)
+        return status, err
+
 if __name__ == '__main__':
     api = Api()
-    # Creăm fereastra și atașăm API-ul
     window = webview.create_window('Password Manager', 'index.html', js_api=api, width=900, height=700)
     window.min_size = (800, 600)
-    webview.start(debug=False)
+    webview.start(debug=True)

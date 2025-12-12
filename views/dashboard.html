@@ -7,7 +7,7 @@
         <div class="flex items-center justify-between h-16 bg-slate-950 shadow-md px-4 overflow-hidden shrink-0">
             <h1 class="text-xl font-bold tracking-wider flex items-center gap-2 whitespace-nowrap">
                 <i data-lucide="layout-dashboard" class="text-indigo-500 flex-shrink-0"></i>
-                <span class="sidebar-text transition-opacity duration-300">PASSWORD MASTER</span>
+                <span class="sidebar-text transition-opacity duration-300">MENU</span>
             </h1>
             <button onclick="toggleDesktopSidebar()"
                 class="hidden lg:block text-slate-400 hover:text-white transition-colors p-1 rounded-md hover:bg-slate-800">
@@ -25,13 +25,13 @@
                 <i data-lucide="home" class="w-5 h-5 flex-shrink-0"></i>
                 <span class="sidebar-text font-medium">Overview</span>
             </button>
-            <button onclick="switchTab('customers')" id="nav-customers"
+            <button onclick="switchTab('passwords')" id="nav-passwords"
                 class="nav-item w-full flex items-center gap-3 px-3 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group whitespace-nowrap">
                 <i data-lucide="key-round"
                     class="w-5 h-5 group-hover:text-indigo-400 transition-colors flex-shrink-0"></i>
                 <span class="sidebar-text font-medium">Passwords</span>
             </button>
-            <button onclick="switchTab('orders')" id="nav-orders"
+            <button onclick="switchTab('password-generator')" id="nav-password-generator"
                 class="nav-item w-full flex items-center gap-3 px-3 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors group whitespace-nowrap">
                 <i data-lucide="rectangle-ellipsis"
                     class="w-5 h-5 group-hover:text-pink-400 transition-colors flex-shrink-0"></i>
@@ -49,7 +49,7 @@
             <div class="profile-section flex items-center gap-3 whitespace-nowrap">
                 <i data-lucide="user" class="w-6 h-6 text-slate-400"></i>
                 <div class="profile-info sidebar-text">
-                    <p class="text-sm font-semibold text-white">$(username)</p>
+                    <p id="username-textbox" class="text-sm font-semibold text-white">userName</p>
                 </div>
             </div>
         </div>
@@ -77,80 +77,166 @@
         <main class="flex-1 overflow-y-auto p-4 lg:p-8 relative">
 
             <div id="view-overview" class="view-section">
-                <div class="mb-8">
-                    <h2 class="text-2xl font-bold text-slate-800">Dashboard Overview</h2>
-                    <p class="text-slate-500">Welcome back!</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-slate-500 text-sm font-medium">Total Revenue</h3>
-                            <i data-lucide="dollar-sign" class="text-indigo-500 w-5 h-5"></i>
-                        </div>
-                        <p class="text-2xl font-bold text-slate-800">$45,231</p>
+                <div id="security-module"
+                    class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 mb-6 transition-all">
+
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i data-lucide="shield-alert" class="text-orange-500"></i>
+                            Security Audit
+                        </h3>
+                        <button onclick="checkWeakPasswords()"
+                            class="text-sm bg-orange-100 text-orange-600 px-3 py-1 rounded-full hover:bg-orange-200 transition font-medium">
+                            Scan Now
+                        </button>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-slate-500 text-sm font-medium">Active Users</h3>
-                            <i data-lucide="users" class="text-orange-500 w-5 h-5"></i>
+
+                    <div id="security-results" class="hidden">
+                        <div class="bg-red-50 border border-red-100 rounded-lg p-4 mb-4">
+                            <p class="text-red-700 font-semibold">
+                                ⚠️ Found <span id="weak-count">0</span> weak passwords!
+                            </p>
+                            <p class="text-xs text-red-500 mt-1">Consider changing these immediately.</p>
                         </div>
-                        <p class="text-2xl font-bold text-slate-800">1,205</p>
+
+                        <div class="overflow-hidden rounded-lg border border-slate-100">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 text-slate-500">
+                                    <tr>
+                                        <th class="px-4 py-2">Website</th>
+                                        <th class="px-4 py-2">User</th>
+                                        <th class="px-4 py-2 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="weak-list" class="divide-y divide-slate-100 bg-white">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-slate-500 text-sm font-medium">Orders</h3>
-                            <i data-lucide="shopping-cart" class="text-pink-500 w-5 h-5"></i>
-                        </div>
-                        <p class="text-2xl font-bold text-slate-800">340</p>
+
+                    <div id="security-clean" class="hidden text-center py-4">
+                        <p class="text-green-600 font-medium flex items-center justify-center gap-2">
+                            <i data-lucide="check-circle" class="w-5 h-5"></i>
+                            All passwords look strong!
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <div id="view-customers" class="view-section hidden">
-                <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-                    <h2 class="text-2xl font-bold text-slate-800">Customers Management</h2>
-                    <button onclick="addCred()"
-                        class="w-full sm:w-auto bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700 transition">Add
-                        New</button>
+            <div id="view-passwords" class="view-section hidden relative min-h-screen">
+
+                <div class="flex justify-between items-center mb-8 px-2">
+                    <h2 class="text-2xl font-bold text-slate-800">Saved Passwords</h2>
+
+                    <button onclick="openModal()"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition transform hover:scale-105">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
                 </div>
 
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 mb-6">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <input id="new-site" type="text" placeholder="Website"
-                            class="p-2 border rounded focus:ring-2 focus:ring-indigo-500 outline-none w-full">
-                        <input id="new-login" type="text" placeholder="Username"
-                            class="p-2 border rounded focus:ring-2 focus:ring-indigo-500 outline-none w-full">
-                        <input id="new-pass" type="password" placeholder="Password"
-                            class="p-2 border rounded focus:ring-2 focus:ring-indigo-500 outline-none w-full">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse min-w-[600px]">
+                            <th class="px-6 py-4 font-semibold">Website</th>
+                            <th class="px-6 py-4 font-semibold">Username</th>
+                            <th class="px-6 py-4 font-semibold text-center w-24">Actions</th>
+                            <th class="px-6 py-4 font-semibold min-w-[250px]">Password</th>
+                            <tbody id="cred-list" class="divide-y divide-slate-100 text-sm text-slate-700">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-x-auto">
-                    <table class="w-full text-left border-collapse min-w-[600px]">
-                        <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
-                            <tr>
-                                <th class="px-6 py-4 font-semibold">Website</th>
-                                <th class="px-6 py-4 font-semibold">Username</th>
-                                <th class="px-6 py-4 font-semibold">Password</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cred-list" class="divide-y divide-slate-100 text-sm">
-                        </tbody>
-                    </table>
+                <div id="add-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title"
+                    role="dialog" aria-modal="true">
+                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onclick="closeModal()">
+                    </div>
+
+                    <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                        <div
+                            class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+
+                            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                <div class="sm:flex sm:items-start">
+                                    <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+
+                                        <h3 class="text-lg font-semibold leading-6 text-gray-900 mb-4" id="modal-title">
+                                            Add a new password
+                                        </h3>
+
+                                        <div id="feedback-message-modal" class="text-sm font-bold mb-3 text-center h-5">
+                                        </div>
+
+                                        <div class="space-y-4">
+                                            <div>
+                                                <label
+                                                    class="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                                                <input id="new-site" type="text" placeholder="ex: google.com"
+                                                    onkeydown="if(event.key === 'Enter') handleFormSubmit()"
+                                                    class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-1">Username /
+                                                    Email</label>
+                                                <input id="new-login" type="text" placeholder="Username"
+                                                    onkeydown="if(event.key === 'Enter') handleFormSubmit()"
+                                                    class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            </div>
+                                            <div>
+                                                <label
+                                                    class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                                                <div class="relative w-full min-w-[250px]">
+
+                                                    <input type="password" value="........" id="new-pass"
+                                                        data-fetched="false"
+                                                        class="w-full p-2.5 pr-10 border border-gray-300 rounded-lg text-sm text-gray-700 
+                               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm">
+
+                                                    <button type="button"
+                                                        onclick="togglePasswordVisibilityInputBox('new-pass','eye-icon-pass')"
+                                                        tabindex="-1"
+                                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-600 cursor-pointer p-1 rounded-full hover:bg-gray-100 transition-colors">
+
+                                                        <svg id="eye-icon-pass" xmlns="http://www.w3.org/2000/svg"
+                                                            width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z">
+                                                            </path>
+                                                            <circle cx="12" cy="12" r="3"></circle>
+                                                        </svg>
+
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 gap-2">
+                                <button id="modal-save-btn" type="button" onclick="handleFormSubmit()"
+                                    class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:w-auto">
+                                    Save
+                                </button>
+                                <button type="button" onclick="closeModal()"
+                                    class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div id="view-orders" class="view-section hidden">
-                <h2 class="text-2xl font-bold text-slate-800 mb-4">Orders Management</h2>
+            <div id="view-password-generator" class="view-section hidden">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4">Password Generator</h2>
                 <div class="bg-white p-10 rounded-xl shadow-sm border text-center">
-                    <p>Orders list goes here...</p>
-                </div>
-            </div>
-
-            <div id="view-analytics" class="view-section hidden">
-                <h2 class="text-2xl font-bold text-slate-800 mb-4">Analytics Data</h2>
-                <div class="bg-white p-10 rounded-xl shadow-sm border text-center">
-                    <p>Charts & Graphs go here...</p>
+                    <p>Generator</p>
                 </div>
             </div>
 

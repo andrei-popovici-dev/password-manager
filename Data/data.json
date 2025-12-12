@@ -42,8 +42,28 @@
             "credentials": [
                 {
                     "website": "andrei",
-                    "login": "andrei",
-                    "password": "gAAAAABpOIiawa6bl95ysc99z_hwVWxfqNKdstNo9VOII6DDGBI7EF3a2u04Md_yHA0Q2g5vxatwTNaQ6kYg7gMWhiyTpF-l2Q=="
+                    "login": "salut",
+                    "password": "gAAAAABpPD6hOwFzVK6AQ9i9_KMc_UHmtgUYvtVWThKdcHtRYt5bFAYmIhHKuCN9D9CzuwwdcjENXSjZXzTAN-9vXgGcxHa_uw=="
+                },
+                {
+                    "website": "Google.com",
+                    "login": "Andrei",
+                    "password": "gAAAAABpPEN9_hRmF3b8GRMT8M44wUnihlMYH3Ou0L_Oxgmc75SAK1ZcRKZ9GsiOkmc6yRP3Y5c8mWKbGUJ3F_64kBnAL2H3OA=="
+                },
+                {
+                    "website": "da",
+                    "login": "nu",
+                    "password": "gAAAAABpPEeLd-BBNB0jPwN_kSgpXxMA0uyIwwxdkvbkxHch5cAoIvGCVKqSrgs_yNDJtLi0QDr3OjxvtEY7Qos2fIq7gv6mXg=="
+                },
+                {
+                    "website": "AndreiWebsite",
+                    "login": "emailPowerful@mail.com",
+                    "password": "gAAAAABpPIk0OWjYWp9uEx0EZQBfhRcTUB5UlkstZ2pCZKVc1rnw-RwIhkpU7ck3SnGz-Yv48aD5s-bEkH7vaqlkF_N8WnaU7zkmLQF1wgERrGKi8wbyvq-eOZxq_IQMTRaV5VBD4qRm"
+                },
+                {
+                    "website": "users",
+                    "login": "undefined",
+                    "password": "gAAAAABpPJlk2WvfdnhUach6uSbTEsS3KLeelNeXvKbkZVe6h9QXGmNWQTlhBV7Nks2C8f43cXADiinSLNizUOLt17gFuOOseQ=="
                 }
             ]
         },
@@ -57,6 +77,12 @@
             "username": "user23",
             "password": "eVzrqkZUL2XKBg1l7e3pDjC8lIUw1p0/v0dL4GOIqDI=",
             "salt": "9jfSAmmzRBniUoxQyPWV/w==",
+            "credentials": []
+        },
+        {
+            "username": "userTest",
+            "password": "0iUfOCuja/E/ggt3ix2W6Zlt9pSEdu62QI/nlMuoCpY=",
+            "salt": "wdsEpE/1zqUE5+20qKQo8w==",
             "credentials": []
         }
     ]
