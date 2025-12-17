@@ -1,3 +1,6 @@
+import random
+import string
+
 import webview
 from typing_extensions import reveal_type
 
