@@ -12,7 +12,6 @@
             overflow: hidden;
         }
 
-        /* Scrollbar customizat */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -38,18 +37,19 @@
 
     <div id="dashboard-container-wrapper"></div>
 
-    <script src="app.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/dashboard_password_generator.js"></script>
+    <script src="js/dashboard_view_passwords.js"></script>
+    <script src="js/dashboard_overview.js"></script>
 
     <script>
-        // Această funcție încarcă fișierele HTML separate în pagina principală
         async function loadComponents() {
             try {
-                // Încărcăm Login
                 const loginRes = await fetch('views/login.html');
                 const loginHtml = await loginRes.text();
                 document.getElementById('login-container-wrapper').innerHTML = loginHtml;
 
-                // Încărcăm Dashboard
                 const dashRes = await fetch('views/dashboard.html');
                 const dashHtml = await dashRes.text();
                 document.getElementById('dashboard-container-wrapper').innerHTML = dashHtml;
@@ -64,7 +64,6 @@
             }
         }
 
-        // Pornim încărcarea
         loadComponents();
     </script>
 </body>

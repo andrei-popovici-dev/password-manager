@@ -114,9 +114,7 @@ def add_credential(username, website, login, password, main_password):
     data = load_data()
     for acc in data["accounts"]:
         if acc["username"] == username:
-            success, err = verify_password_style(password)
-            if not success:
-                return False, err
+            
             salt = base64.b64decode(acc["salt"])
             key = derive_key(main_password, salt)
             encrypted_pwd = encrypt_password(password, key)
