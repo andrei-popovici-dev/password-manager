@@ -41,11 +41,6 @@
             "salt": "iS7d9i45MXjdou7OKQssqw==",
             "credentials": [
                 {
-                    "website": "andrei",
-                    "login": "salut",
-                    "password": "gAAAAABpPD6hOwFzVK6AQ9i9_KMc_UHmtgUYvtVWThKdcHtRYt5bFAYmIhHKuCN9D9CzuwwdcjENXSjZXzTAN-9vXgGcxHa_uw=="
-                },
-                {
                     "website": "da",
                     "login": "nu",
                     "password": "gAAAAABpPEeLd-BBNB0jPwN_kSgpXxMA0uyIwwxdkvbkxHch5cAoIvGCVKqSrgs_yNDJtLi0QDr3OjxvtEY7Qos2fIq7gv6mXg=="
@@ -68,7 +63,17 @@
                 {
                     "website": "csaasfas",
                     "login": "dsadas",
-                    "password": "gAAAAABpQw__7q5YL8uQJaWS5_3RMh1HH6MtkQo08FEDrj-DKCTW8nRbImBrTrOybtUV2g-0r0VoxPam6r8-WAygG_NaJhn4qg=="
+                    "password": "gAAAAABpRXB-xFWGQ2l7Vw3i__VG-9ngafV8c0P8U3WcEXKEH16GzUl4JqAUSK89VxshsqeiuKfzakFgk62YiiZ1PGwnnUfEOA=="
+                },
+                {
+                    "website": "andrei",
+                    "login": "salut",
+                    "password": "gAAAAABpRXL5dazl7uemzz_V-29w7PsvcGVCbR_r28sZHGQoZUUTxRdo-v1CX2-Tal9WCDSlatVjZgEI3CTo0IQr2NB2e3TmeQ=="
+                },
+                {
+                    "website": "google.com",
+                    "login": "daf",
+                    "password": "gAAAAABpRYSvPxHexjg2YUo1dSEQbDKrqDtKM0Yn3JWSsWwpJ_ArLHVMWV_nl3LaRa3vCevROyuiuHM6RKAWsWcIPlOFJLJm1g=="
                 }
             ]
         },
