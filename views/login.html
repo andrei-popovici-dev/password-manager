@@ -1,0 +1,60 @@
+<div id="auth-container"
+    class="flex flex-1 items-center justify-center min-h-screen p-4 transition-all duration-500 absolute inset-0 z-20">
+
+    <div id="auth-card"
+        class="bg-white rounded-xl shadow-2xl w-96 transition-all duration-500 ease-in-out overflow-hidden relative">
+
+        <div id="auth-content" class="p-8 transition-opacity duration-300 ease-out w-full max-w-xs mx-auto">
+
+            <h2 id="card-title"
+                class="text-3xl font-bold mb-6 text-center text-gray-800 transition-colors duration-300">
+                Login
+            </h2>
+
+            <div class="space-y-4">
+                <div class="px-1">
+                    <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Username</label>
+                    <input id="auth-user" type="text" onkeydown="if(event.key === 'Enter') handleAuthAction()"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                </div>
+
+                <div class="px-1">
+                    <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Password</label>
+                    <input id="auth-pass" type="password" onkeydown="if(event.key === 'Enter') handleAuthAction()"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                </div>
+
+                <div id="expandable-section"
+                    class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out">
+                    <div class="overflow-hidden">
+                        <div class="pt-1 px-1 pb-1">
+                            <label class="block text-gray-600 text-sm font-semibold mb-1 ml-1">Repeat Password</label>
+                            <input id="auth-pass-repeat" type="password"
+                                onkeydown="if(event.key === 'Enter') handleAuthAction()"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex flex-col gap-3">
+                <button id="main-btn" onclick="handleAuthAction()"
+                    class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-bold transition-colors shadow-md hover:shadow-lg transform active:scale-95">
+                    Login
+                </button>
+
+                <div class="text-center">
+                    <p class="text-sm text-gray-500">
+                        <span id="toggle-text">Don't have an account?</span>
+                        <button onclick="toggleAuthMode()"
+                            class="text-blue-600 font-bold hover:underline ml-1 focus:outline-none">
+                            <span id="toggle-btn-label">Sign in</span>
+                        </button>
+                    </p>
+                </div>
+            </div>
+
+            <p id="auth-msg" class="mt-4 text-center text-red-500 text-sm font-medium min-h-[20px] transition-all"></p>
+        </div>
+    </div>
+</div>

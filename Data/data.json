@@ -1,0 +1,99 @@
+{
+    "accounts": [
+        {
+            "username": "stefan",
+            "password": "SzaF5G6zT2HBurdHXsMVQ9otVIJtt78k0DNpMBuBubE=",
+            "salt": "h+4x14/OZZIvt7JHz/8neA==",
+            "credentials": [
+                {
+                    "website": "facebook",
+                    "login": "mail",
+                    "password": "gAAAAABpLID_CHWr5y-vhCoieXbB-2gGKvfbgF6Y1o8UwMcjPWGCHIiAWkm4nFRsJf0sEEhOZUbEGM9e0tvm74GfyAe3J7ursw=="
+                }
+            ]
+        },
+        {
+            "username": "gigel",
+            "password": "lSooEAY47f4vGnxUg3zjxzONpt4DwoWYgfZRH0dgyJg=",
+            "salt": "PNN5bOtEr1as8cINPqL2sg==",
+            "credentials": [
+                {
+                    "website": "da",
+                    "login": "da",
+                    "password": "gAAAAABpLIIGUkMaVkmPiNvn2nOrJqoro9LaVoc80fcM7-7Gngmfaaaomz4w0wxl6PQMI1DJJcciKspTqSRrHdhLmjgr8irLwA=="
+                },
+                {
+                    "website": "nu",
+                    "login": "nu",
+                    "password": "gAAAAABpLIINAXGDf1XgWq3pdv6sLaQFG_gcaOi7Ly1X0NpfTB9AXsVVJdx374nnIE6ENVcY8ai7EKCPWeBYIGVqLoB7O1A28Q=="
+                }
+            ]
+        },
+        {
+            "username": "andrei",
+            "password": "6d7VR1lBJ1vuxK/gJEw5CebvwOby6JCIgNrl5Iz5cfw=",
+            "salt": "S4QvDV4PF9Z6mq4Mb4OWPQ==",
+            "credentials": []
+        },
+        {
+            "username": "user",
+            "password": "EER+2xUqTR04csg0YaP9Jz8ZzmmanVSpt0T9jw4e+bw=",
+            "salt": "iS7d9i45MXjdou7OKQssqw==",
+            "credentials": [
+                {
+                    "website": "da",
+                    "login": "nu",
+                    "password": "gAAAAABpPEeLd-BBNB0jPwN_kSgpXxMA0uyIwwxdkvbkxHch5cAoIvGCVKqSrgs_yNDJtLi0QDr3OjxvtEY7Qos2fIq7gv6mXg=="
+                },
+                {
+                    "website": "AndreiWebsite",
+                    "login": "emailPowerful@mail.com",
+                    "password": "gAAAAABpPIk0OWjYWp9uEx0EZQBfhRcTUB5UlkstZ2pCZKVc1rnw-RwIhkpU7ck3SnGz-Yv48aD5s-bEkH7vaqlkF_N8WnaU7zkmLQF1wgERrGKi8wbyvq-eOZxq_IQMTRaV5VBD4qRm"
+                },
+                {
+                    "website": "users",
+                    "login": "undefined",
+                    "password": "gAAAAABpPJlk2WvfdnhUach6uSbTEsS3KLeelNeXvKbkZVe6h9QXGmNWQTlhBV7Nks2C8f43cXADiinSLNizUOLt17gFuOOseQ=="
+                },
+                {
+                    "website": "Google.com",
+                    "login": "Andrei",
+                    "password": "gAAAAABpQu8DkMV8_htQKISsexAXDB9By_PHdwyiqqnlVsHJg8N3yifgcTNUrO5jdKxbAglH0LoSQBNI7uX8pO_CC2U8Di2MoA=="
+                },
+                {
+                    "website": "csaasfas",
+                    "login": "dsadas",
+                    "password": "gAAAAABpRXB-xFWGQ2l7Vw3i__VG-9ngafV8c0P8U3WcEXKEH16GzUl4JqAUSK89VxshsqeiuKfzakFgk62YiiZ1PGwnnUfEOA=="
+                },
+                {
+                    "website": "andrei",
+                    "login": "salut",
+                    "password": "gAAAAABpRXL5dazl7uemzz_V-29w7PsvcGVCbR_r28sZHGQoZUUTxRdo-v1CX2-Tal9WCDSlatVjZgEI3CTo0IQr2NB2e3TmeQ=="
+                },
+                {
+                    "website": "google.com",
+                    "login": "daf",
+                    "password": "gAAAAABpRYSvPxHexjg2YUo1dSEQbDKrqDtKM0Yn3JWSsWwpJ_ArLHVMWV_nl3LaRa3vCevROyuiuHM6RKAWsWcIPlOFJLJm1g=="
+                }
+            ]
+        },
+        {
+            "username": "user12",
+            "password": "3Ryv+EkZCY8mxVlNImhF0ccqynQHyMCBfuN2oLFIwPs=",
+            "salt": "V2LGtge4sXCBKwI/8chllA==",
+            "credentials": []
+        },
+        {
+            "username": "user23",
+            "password": "eVzrqkZUL2XKBg1l7e3pDjC8lIUw1p0/v0dL4GOIqDI=",
+            "salt": "9jfSAmmzRBniUoxQyPWV/w==",
+            "credentials": []
+        },
+        {
+            "username": "userTest",
+            "password": "0iUfOCuja/E/ggt3ix2W6Zlt9pSEdu62QI/nlMuoCpY=",
+            "salt": "wdsEpE/1zqUE5+20qKQo8w==",
+            "credentials": []
+        }
+    ]
+}

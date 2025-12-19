@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans h-screen flex flex-col relative">
+
+    <div id="login-container-wrapper"></div>
+
+    <div id="dashboard-container-wrapper"></div>
+
+    <script src="js/login.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/dashboard_password_generator.js"></script>
+    <script src="js/dashboard_view_passwords.js"></script>
+    <script src="js/dashboard_overview.js"></script>
+
+    <script>
+        async function loadComponents() {
+            try {
+                const loginRes = await fetch('views/login.html');
+                const loginHtml = await loginRes.text();
+                document.getElementById('login-container-wrapper').innerHTML = loginHtml;
+
+                const dashRes = await fetch('views/dashboard.html');
+                const dashHtml = await dashRes.text();
+                document.getElementById('dashboard-container-wrapper').innerHTML = dashHtml;
+
+                if (typeof initDashboard === 'function') {
+                    initDashboard();
+                }
+
+                console.log("HTML files loaded successfully");
+            } catch (error) {
+                console.error("Couldn't load HTML files", error);
+            }
+        }
+
+        loadComponents();
+    </script>
+</body>
+
+</html>
